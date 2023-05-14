@@ -61,7 +61,7 @@ if __name__ == "__main__":
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     prosody = TTSProsody("./bert", device)
     scrips = []
-    speaker = "yueyunyao"
+    #speaker = "yueyunyao"
 
     device = torch.device("cpu")
 
@@ -73,8 +73,8 @@ if __name__ == "__main__":
         for i in range(len(all)):
             # 原始数据格式兼容隔壁moegoe，下同:
             # 音频相对路径|说话人ID（单人就是0)|中文文本
-            temp = all[i].split("|0|")
-            path, content = temp[0], temp[1]
+            temp = all[i].split("|")
+            path, spk_id,content = temp[0],temp[1], temp[2]
             name = path.split("/")[-1][:-4]
             phone_items_str, char_embeds = pinyin_generator.chinese_to_phonemes(content)
             char_embeds_path = f"./data/berts/{name}.npy"
@@ -86,7 +86,7 @@ if __name__ == "__main__":
 
             torch.save(spec, spec_path)
             scrips.append(
-                f"./data/waves/{name}.wav|./data/temps/{name}.spec.pt|./data/berts/{name}.npy|{phone_items_str}")
+                f"./data/waves/{name}.wav|{spk_id}|./data/temps/{name}.spec.pt|./data/berts/{name}.npy|{phone_items_str}")
             f.close()
 
     cnt = len(scrips)
@@ -94,8 +94,8 @@ if __name__ == "__main__":
     with open(hps.data.origin_validation_files, "r", encoding="utf-8") as f:
         all = f.readlines()
         for i in range(len(all)):
-            temp = all[i].split("|0|")
-            path, content = temp[0], temp[1]
+            temp = all[i].split("|")
+            path, spk_id,content = temp[0],temp[1], temp[2]
             name = path.split("/")[-1][:-4]
             phone_items_str, char_embeds = pinyin_generator.chinese_to_phonemes(content)
             char_embeds_path = f"./data/berts/{name}.npy"
@@ -107,7 +107,7 @@ if __name__ == "__main__":
 
             torch.save(spec, spec_path)
             scrips.append(
-                f"./data/waves/{name}.wav|./data/temps/{name}.spec.pt|./data/berts/{name}.npy|{phone_items_str}")
+                f"./data/waves/{name}.wav|{spk_id}|./data/temps/{name}.spec.pt|./data/berts/{name}.npy|{phone_items_str}")
             f.close()
 
     fout = open(f'./filelists/all.txt', 'w', encoding='utf-8')
