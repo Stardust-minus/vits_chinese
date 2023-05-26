@@ -21,7 +21,7 @@ from torch.cuda.amp import autocast, GradScaler
 import commons
 import utils
 from data_utils import (
-  TextAudioSpeakerLoader,
+  TextAudioLoader,
   DistributedBucketSampler,
   TextAudioSpeakerCollate
 )
@@ -70,7 +70,7 @@ def run(rank, n_gpus, hps):
     torch.manual_seed(hps.train.seed)
     torch.cuda.set_device(rank)
 
-    train_dataset = TextAudioSpeakerLoader(hps.data.training_files, hps.data)
+    train_dataset = TextAudioLoader(hps.data.training_files, hps.data)
     train_sampler = DistributedBucketSampler(
         train_dataset,
         hps.train.batch_size,
