@@ -1,5 +1,4 @@
 import re
-import os
 import pypinyin
 from pypinyin import Style
 from pypinyin.contrib.neutral_tone import NeutralToneWith5Mixin
@@ -55,7 +54,7 @@ class VITS_PinYin:
         text = ''.join(tokens)
         #assert not tokens.count("[UNK]")
         if tokens.count("[UNK]"):
-            os._exit(0)
+            break
         pinyins = np.reshape(pypinyin.pinyin(text, style=pypinyin.TONE3), (-1))
         try:
             phone_index = 0
