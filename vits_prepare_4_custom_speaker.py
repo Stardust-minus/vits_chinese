@@ -80,13 +80,12 @@ if __name__ == "__main__":
             char_embeds_path = f"./data/berts/{name}.npy"
             np.save(char_embeds_path, char_embeds, allow_pickle=False)
 
-            wave_path = path
             spec_path = f"./data/temps/{name}.spec.pt"
-            spec = get_spec(hps, wave_path)
+            spec = get_spec(hps, path)
 
             torch.save(spec, spec_path)
             scrips.append(
-                f"./data/waves/{name}.wav|{spk_id}|./data/temps/{name}.spec.pt|./data/berts/{name}.npy|{phone_items_str}")
+                f{path}"|{spk_id}|./data/temps/{name}.spec.pt|./data/berts/{name}.npy|{phone_items_str}")
             f.close()
 
     cnt = len(scrips)
@@ -101,13 +100,12 @@ if __name__ == "__main__":
             char_embeds_path = f"./data/berts/{name}.npy"
             np.save(char_embeds_path, char_embeds, allow_pickle=False)
 
-            wave_path = f"./data/waves/{name}.wav"
             spec_path = f"./data/temps/{name}.spec.pt"
             spec = get_spec(hps, wave_path)
 
-            torch.save(spec, spec_path)
+            torch.save(spec, path)
             scrips.append(
-                f"./data/waves/{name}.wav|{spk_id}|./data/temps/{name}.spec.pt|./data/berts/{name}.npy|{phone_items_str}")
+                f"{path}|{spk_id}|./data/temps/{name}.spec.pt|./data/berts/{name}.npy|{phone_items_str}")
             f.close()
 
     fout = open(f'./filelists/all.txt', 'w', encoding='utf-8')
