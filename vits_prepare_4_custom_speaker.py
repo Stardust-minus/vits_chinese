@@ -101,7 +101,7 @@ if __name__ == "__main__":
             np.save(char_embeds_path, char_embeds, allow_pickle=False)
 
             spec_path = f"./data/temps/{name}.spec.pt"
-            spec = get_spec(hps, wave_path)
+            spec = get_spec(hps, path)
 
             torch.save(spec, path)
             scrips.append(
