@@ -23,7 +23,7 @@ import utils
 from data_utils import (
   TextAudioLoader,
   DistributedBucketSampler,
-  TextAudioSpeakerCollate
+  TextAudioCollate
 )
 from models import MultiPeriodDiscriminator
 from losses import generator_loss, discriminator_loss, feature_loss, kl_loss
@@ -81,7 +81,7 @@ def run(rank, n_gpus, hps):
     )
     # It is possible that dataloader's workers are out of shared memory. Please try to raise your shared memory limit.
     # num_workers=8 -> num_workers=4
-    collate_fn = TextAudioSpeakerCollate()
+    collate_fn = TextAudioCollate()
     train_loader = DataLoader(
         train_dataset,
         num_workers=8,
