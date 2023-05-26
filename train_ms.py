@@ -205,7 +205,8 @@ def train_and_evaluate(
 
     net_g.train()
     net_d.train()
-    for batch_idx, (x, x_lengths, bert, spec, spec_lengths, y, y_lengths) in enumerate(train_loader):
+    for batch_idx, (x, x_lengths, bert, spec, spec_lengths, y, y_lengths,speakers) in
+enumerate(train_loader):
         x, x_lengths = x.cuda(rank, non_blocking=True), x_lengths.cuda(
             rank, non_blocking=True
         )
