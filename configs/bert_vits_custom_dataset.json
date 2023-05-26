@@ -32,7 +32,7 @@
     "mel_fmin": 0.0,
     "mel_fmax": null,
     "add_blank": false,
-    "n_speakers": 0
+    "n_speakers": 139
   },
   "model": {
     "inter_channels": 384,
