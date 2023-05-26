@@ -179,11 +179,11 @@ class TextAudioSpeakerCollate():
             torch.LongTensor([x[1].size(1) for x in batch]),
             dim=0, descending=True)
 
-        max_text_len = max([len(x[0]) for x in batch])
-        max_spec_len = max([x[1].size(1) for x in batch])
-        max_wav_len = max([x[2].size(1) for x in batch])
-        max_bert_len = max([len(x[3]) for x in batch])
 
+        max_spec_len = max([x[0].size(1) for x in batch]) 
+        max_wav_len = max([x[1].size(1) for x in batch]) 
+        max_text_len = max([len(x[2]) for x in batch]) 
+        max_bert_len = max([len(x[3]) for x in batch])
         text_lengths = torch.LongTensor(len(batch))
         spec_lengths = torch.LongTensor(len(batch))
         wav_lengths = torch.LongTensor(len(batch))
