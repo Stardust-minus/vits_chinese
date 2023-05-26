@@ -85,7 +85,7 @@ if __name__ == "__main__":
 
             torch.save(spec, spec_path)
             scrips.append(
-                f{path}"|{spk_id}|./data/temps/{name}.spec.pt|./data/berts/{name}.npy|{phone_items_str}")
+                f"{path}|{spk_id}|./data/temps/{name}.spec.pt|./data/berts/{name}.npy|{phone_items_str}")
             f.close()
 
     cnt = len(scrips)
