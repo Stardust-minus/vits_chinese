@@ -80,7 +80,7 @@ if __name__ == "__main__":
             char_embeds_path = f"./data/berts/{name}.npy"
             np.save(char_embeds_path, char_embeds, allow_pickle=False)
 
-            wave_path = f"./data/waves/{name}.wav"
+            wave_path = path
             spec_path = f"./data/temps/{name}.spec.pt"
             spec = get_spec(hps, wave_path)
 
