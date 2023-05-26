@@ -53,8 +53,8 @@ class VITS_PinYin:
         tokens = self.prosody.char_model.tokenizer.tokenize(text)
         text = ''.join(tokens)
         #assert not tokens.count("[UNK]")
-        if tokens.count("[UNK]"):
-            break
+        #if tokens.count("[UNK]"):
+         #   break
         pinyins = np.reshape(pypinyin.pinyin(text, style=pypinyin.TONE3), (-1))
         try:
             phone_index = 0
