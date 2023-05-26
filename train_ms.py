@@ -91,7 +91,7 @@ def run(rank, n_gpus, hps):
         batch_sampler=train_sampler,
     )
     if rank == 0:
-        eval_dataset = TextAudioSpeakerLoader(hps.data.validation_files, hps.data)
+        eval_dataset = TextAudioLoader(hps.data.validation_files, hps.data)
         eval_loader = DataLoader(
             eval_dataset,
             num_workers=8,
