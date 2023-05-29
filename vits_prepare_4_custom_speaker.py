@@ -63,7 +63,7 @@ if __name__ == "__main__":
     scrips = []
     #speaker = "yueyunyao"
 
-    device = torch.device("cpu")
+    #device = torch.device("cpu")
 
     # pinyin
     pinyin_generator = VITS_PinYin("./bert", device)
