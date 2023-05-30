@@ -160,7 +160,7 @@ class TextAudioCollate():
             sid[i] = row[4]
 
         if self.return_ids:
-            return text_padded, text_lengths, bert_padded, spec_padded, spec_lengths, wav_padded, wav_lengths, ids_sorted_decreasing
+            return text_padded, text_lengths, bert_padded, spec_padded, spec_lengths, wav_padded, wav_lengths, sid,ids_sorted_decreasing
         return text_padded, text_lengths, bert_padded, spec_padded, spec_lengths, wav_padded, wav_lengths,sid
 
 class TextAudioSpeakerCollate():
