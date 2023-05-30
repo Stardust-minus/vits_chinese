@@ -88,35 +88,7 @@ if __name__ == "__main__":
                 f"{path}|{spk_id}|./data/temps/{name}.spec.pt|./data/berts/{name}.npy|{phone_items_str}")
             f.close()
 
-    cnt = len(scrips)
-
-    with open(hps.data.origin_validation_files, "r", encoding="utf-8") as f:
-        all = f.readlines()
-        for i in range(len(all)):
-            temp = all[i].split("|")
-            path, spk_id,content = temp[0],temp[1], temp[2]
-            name = path.split("/")[-1][:-4]
-            phone_items_str, char_embeds = pinyin_generator.chinese_to_phonemes(content)
-            char_embeds_path = f"./data/berts/{name}.npy"
-            np.save(char_embeds_path, char_embeds, allow_pickle=False)
-
-            spec_path = f"./data/temps/{name}.spec.pt"
-            spec = get_spec(hps, path)
-
-            torch.save(spec, path)
-            scrips.append(
-                f"{path}|{spk_id}|./data/temps/{name}.spec.pt|./data/berts/{name}.npy|{phone_items_str}")
-            f.close()
-
     fout = open(f'./filelists/all.txt', 'w', encoding='utf-8')
     for item in scrips:
-        print(item, file=fout)
-    fout.close()
-    fout = open(f'./filelists/valid.txt', 'w', encoding='utf-8')
-    for item in scrips[cnt:]:
-        print(item, file=fout)
-    fout.close()
-    fout = open(f'./filelists/train.txt', 'w', encoding='utf-8')
-    for item in scrips[:cnt]:
         print(item, file=fout)
     fout.close()
