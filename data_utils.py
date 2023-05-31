@@ -68,7 +68,7 @@ class TextAudioLoader(torch.utils.data.Dataset):
         return (spec, wave, text, bert,sid)
 
     def get_audio(self, filename):
-        print(filename)        
+        #print(filename)        
         audio, sampling_rate = load_wav_to_torch(filename)
         if sampling_rate != self.sampling_rate:
             raise ValueError(
