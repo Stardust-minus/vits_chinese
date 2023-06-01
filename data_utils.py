@@ -117,7 +117,7 @@ class TextAudioCollate():
         """
         # Right zero-pad all one-hot text sequences to max input length
         _, ids_sorted_decreasing = torch.sort(
-            torch.LongTensor([x[1].size(1) for x in batch]), dim=0, descending=True
+            torch.LongTensor([x[0].size(1) for x in batch]), dim=0, descending=True
         )
 
         max_spec_len = max([x[0].size(1) for x in batch])
