@@ -52,7 +52,7 @@ def load_teacher(checkpoint_path, model,is_old=False):
     return model
 
 
-def load_checkpoint(checkpoint_path, model, optimizer=None):
+def load_checkpoint(checkpoint_path, model, optimizer=None,is_old=False):
     assert os.path.isfile(checkpoint_path)
     checkpoint_dict = torch.load(checkpoint_path, map_location="cpu")
     iteration = checkpoint_dict["iteration"]
@@ -65,12 +65,14 @@ def load_checkpoint(checkpoint_path, model, optimizer=None):
     else:
         state_dict = model.state_dict()
     new_state_dict = {}
-    for k, v in state_dict.items():
-        try:
-            if k.startswith('enc_p') or k.startswith('dp.proj'):
-                new_state_dict[k] = v
-            else:
-                new_state_dict[k] = saved_state_dict[k]
+    for k, v in state_dict.items(): 
+         if not is_old: 
+             if k.startswith('enc_q') or k.startswith('flow'): 
+                 new_state_dict[k] = saved_state_dict[k] 
+             else: 
+                 new_state_dict[k] = v 
+         else: 
+             new_state_dict[k] = v    
         except:
             logger.info("%s is not in the checkpoint" % k)
             new_state_dict[k] = v
