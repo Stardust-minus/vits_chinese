@@ -76,6 +76,7 @@ def load_checkpoint(checkpoint_path, model, optimizer=None,is_old=False):
         state_dict = model.state_dict()
     new_state_dict = {}
     for k, v in state_dict.items(): 
+       try:
          if not is_old: 
              if k.startswith('enc_q') or k.startswith('flow'): 
                  new_state_dict[k] = saved_state_dict[k] 
