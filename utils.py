@@ -84,7 +84,7 @@ def load_checkpoint(checkpoint_path, model, optimizer=None,is_old=False):
                  new_state_dict[k] = v 
             else: 
              new_state_dict[k] = v    
-        except:
+       except:
             logger.info("%s is not in the checkpoint" % k)
             new_state_dict[k] = v
     if hasattr(model, "module"):
