@@ -77,12 +77,12 @@ def load_checkpoint(checkpoint_path, model, optimizer=None,is_old=False):
     new_state_dict = {}
     for k, v in state_dict.items(): 
        try:
-         if not is_old: 
-             if k.startswith('enc_q') or k.startswith('flow'): 
+            if not is_old: 
+                if k.startswith('enc_q') or k.startswith('flow'): 
                  new_state_dict[k] = saved_state_dict[k] 
-             else: 
+                else: 
                  new_state_dict[k] = v 
-         else: 
+            else: 
              new_state_dict[k] = v    
         except:
             logger.info("%s is not in the checkpoint" % k)
