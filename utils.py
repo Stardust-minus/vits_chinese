@@ -59,13 +59,13 @@ def load_checkpoint(checkpoint_path, model, optimizer=None,is_old=False):
     learning_rate = checkpoint_dict["learning_rate"]
     if optimizer is not None:
         if not is_old: 
-            optimizer.load_state_dict(checkpoint_dict['optimizer']) 
+              optimizer.load_state_dict(checkpoint_dict['optimizer']) 
          else: 
-           new_opt_dict = optimizer.state_dict() 
-           new_opt_dict_params = new_opt_dict['param_groups'][0]['params'] 
-           new_opt_dict['param_groups'] = checkpoint_dict['optimizer']['param_groups'] 
-           new_opt_dict['param_groups'][0]['params'] = new_opt_dict_params 
-           optimizer.load_state_dict(new_opt_dict)            
+              new_opt_dict = optimizer.state_dict() 
+              new_opt_dict_params = new_opt_dict['param_groups'][0]['params'] 
+              new_opt_dict['param_groups'] = checkpoint_dict['optimizer']['param_groups'] 
+              new_opt_dict['param_groups'][0]['params'] = new_opt_dict_params 
+              optimizer.load_state_dict(new_opt_dict)            
  
 
 
