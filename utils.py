@@ -28,7 +28,7 @@ def load_class(full_class_name):
     return cls
 
 
-def load_teacher(checkpoint_path, model):
+def load_teacher(checkpoint_path, model,is_old=False):
     assert os.path.isfile(checkpoint_path)
     checkpoint_dict = torch.load(checkpoint_path, map_location='cpu')
     saved_state_dict = checkpoint_dict['model']
@@ -38,8 +38,11 @@ def load_teacher(checkpoint_path, model):
         state_dict = model.state_dict()
     new_state_dict = {}
     for k, v in state_dict.items():
-        if k.startswith('enc_q') or k.startswith('flow'):
-            new_state_dict[k] = saved_state_dict[k]
+        if not is_old:
+            if k.startswith('enc_q') or k.startswith('flow'):
+                new_state_dict[k] = saved_state_dict[k]
+            else:
+                new_state_dict[k] = v
         else:
             new_state_dict[k] = v
     if hasattr(model, 'module'):
