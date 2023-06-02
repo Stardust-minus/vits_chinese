@@ -240,6 +240,10 @@ def get_hparams(init=True):
         help="JSON file for configuration",
     )
     parser.add_argument("-m", "--model", type=str, required=True, help="Model name")
+    parser.add_argument('--ckptG', type=str, required=False,
+                      help='original VITS G checkpoint path')
+    parser.add_argument('--ckptD', type=str, required=False,
+                      help='original VITS D checkpoint path')
 
     args = parser.parse_args()
     model_dir = os.path.join("./logs", args.model)
@@ -261,6 +265,8 @@ def get_hparams(init=True):
 
     hparams = HParams(**config)
     hparams.model_dir = model_dir
+    hparams.ckptG = args.ckptG
+    hparams.ckptD = args.ckptD
     return hparams
 
 
