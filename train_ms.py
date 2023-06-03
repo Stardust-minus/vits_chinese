@@ -137,24 +137,26 @@ def run(rank, n_gpus, hps):
             logger.info("no teacher model.")
 
     net_d = DDP(net_d, device_ids=[rank])
+    ckptG = hps.ckptG
+    ckptD = hps.ckptD
 
-    try:
-        if ckptG is not None:
+    #try:
+    if ckptG is not None:
             _, _, _, epoch_str = utils.load_checkpoint(ckptG, net_g, optim_g, is_old=True)
             print("加载原版VITS模型G记录点成功")
-        else:
+    else:
             _, _, _, epoch_str = utils.load_checkpoint(utils.latest_checkpoint_path(hps.model_dir, "G_*.pth"), net_g,
                                                    optim_g)
-        if ckptD is not None:
-            _, _, _, epoch_str = utils.load_checkpoint(ckptG, net_g, optim_g, is_old=True)
+    if ckptD is not None:
+            _, _, _, epoch_str = utils.load_checkpoint(ckptG, net_d, optim_d, is_old=True)
             print("加载原版VITS模型D记录点成功")
-        else:
+    else:
             _, _, _, epoch_str = utils.load_checkpoint(utils.latest_checkpoint_path(hps.model_dir, "D_*.pth"), net_d,
                                                    optim_d)
-        global_step = (epoch_str - 1) * len(train_loader)
-    except:
-        epoch_str = 1
-        global_step = 0
+    global_step = (epoch_str - 1) * len(train_loader)
+    #except:
+     #   epoch_str = 1
+     #   global_step = 0
 
     scheduler_g = torch.optim.lr_scheduler.ExponentialLR(
         optim_g, gamma=hps.train.lr_decay, last_epoch=epoch_str - 2
@@ -211,7 +213,7 @@ def train_and_evaluate(
 
     net_g.train()
     net_d.train()
-    for batch_idx, (x, x_lengths, bert, spec, spec_lengths, y, y_lengths, speakers) in enumerate(train_loader):    
+    for batch_idx, (x, x_lengths, bert, spec, spec_lengths, y, y_lengths, speakers) in enumerate(train_loader):
         x, x_lengths = x.cuda(rank, non_blocking=True), x_lengths.cuda(
             rank, non_blocking=True
         )
